@@ -57,7 +57,7 @@ function google_fonts_ui_admin_settings_form_submit($form, &$form_state) {
     if (!empty($selectors)) {
       $selectors = check_plain(str_replace("\r\n", ",\r\n", trim($selectors)));
       $selectors = str_replace(',,', ',', $selectors);
-      $css_value .= $selectors . '{ font-family: "' . $font . '"; }' . "\n\n";
+      $css_value .= $selectors . '{ font-family: "' . str_replace('_', ' ', $font) . '"; }' . "\n\n";
     }
   }
   
