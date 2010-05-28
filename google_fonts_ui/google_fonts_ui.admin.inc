@@ -31,7 +31,7 @@ function google_fonts_ui_admin_settings_form(&$form_state) {
       );
       
       $fonts_to_load[] = _google_fonts_system_fontname($font);
-      $style_to_add .= '.' . _google_fonts_system_fontname($font) . ' label{ font-family: "' . $font . '"; } ';
+      $style_to_add .= '.' . _google_fonts_system_fontname($font) . ' label{ font-family: "' . str_replace('_', ' ', $font) . '"; } ';
     }
   }
   $style_to_add .= '</style>';
