@@ -66,7 +66,8 @@ function google_fonts_init() {
  * Add the CSS include to the HEAD of the page
  */
 function _google_fonts_load_css($fonts_to_load) {
-  drupal_add_link(array('type' => 'text/css', 'rel' => 'stylesheet', 'href' => 'http://fonts.googleapis.com/css?family=' . implode('|', $fonts_to_load)));
+  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
+  drupal_add_link(array('type' => 'text/css', 'rel' => 'stylesheet', 'href' => $protocol . '://fonts.googleapis.com/css?family=' . implode('|', $fonts_to_load)));
 }
 
 /**
