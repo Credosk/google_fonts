@@ -20,18 +20,19 @@ function google_fonts_ui_admin_settings_form(&$form_state) {
   $style_to_add = '<style type="text/css">.font_example label{ font-size: 30px; } ';
   foreach (variable_get('google_fonts_enabled_fonts', array()) as $font) {
     if ($font) {
+      $font_info = _google_fonts_get_font_info($font);
       $form['google_fonts_ui_' . _google_fonts_system_fontname($font)] = array(
         '#type' => 'textarea',
-        '#title' => str_replace('_', ' ', $font),
+        '#title' => $font,
         '#default_value' => variable_get('google_fonts_ui_' . _google_fonts_system_fontname($font), NULL),
         '#description' => 'Add one or more CSS selectors, one for each line.',
-        '#prefix' => '<div class="font_example ' . _google_fonts_system_fontname($font) . '">',
+        '#prefix' => '<div class="font_example ' . _google_fonts_path_to_classname($font_info['path']) . '">',
         '#suffix' => '</div>',
         '#rows' => 3,
       );
       
-      $fonts_to_load[] = _google_fonts_system_fontname($font);
-      $style_to_add .= '.' . _google_fonts_system_fontname($font) . ' label{ font-family: "' . str_replace('_', ' ', $font) . '"; } ';
+      $style_to_add .= '.' . _google_fonts_path_to_classname($font_info['path']) . ' label{ font-family: "' . $font_info['family'] . '"; font-style: ' . $font_info['style'] . '; font-weight: ' . $font_info['weight'] . '; } ' . PHP_EOL;
+      $fonts_to_load[] = $font;
     }
   }
   $style_to_add .= '</style>';
@@ -51,13 +52,14 @@ function google_fonts_ui_admin_settings_form(&$form_state) {
  * Implementation of hook_form_submit() for creating the CSS file
  */
 function google_fonts_ui_admin_settings_form_submit($form, &$form_state) {
-  $css_value = '/* CSS code for the Google Fonts module */' . "\n\n";
+  $css_value = '/* CSS code for the Google Fonts module */' . PHP_EOL . PHP_EOL;
   foreach (explode('|', $form['enabled_fonts']["#value"]) as $font) {
-    $selectors = $form['google_fonts_ui_' . $font]["#value"];
+    $selectors = $form['google_fonts_ui_' . _google_fonts_system_fontname($font)]["#value"];
     if (!empty($selectors)) {
+      $font_info = _google_fonts_get_font_info($font);
       $selectors = check_plain(str_replace("\r\n", ",\r\n", trim($selectors)));
       $selectors = str_replace(',,', ',', $selectors);
-      $css_value .= $selectors . '{ font-family: "' . str_replace('_', ' ', $font) . '"; }' . "\n\n";
+      $css_value .= $selectors . '{ font-family: "' . $font_info['family'] . '"; font-style: ' . $font_info['style'] . '; font-weight: ' . $font_info['weight'] . '; }' . PHP_EOL . PHP_EOL;
     }
   }
   

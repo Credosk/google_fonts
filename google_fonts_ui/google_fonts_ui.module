@@ -48,6 +48,7 @@ function _google_fonts_cache($file_contents, $reset = FALSE) {
   if (!file_exists($file_destination) || $reset) {
     // Check that the files directory is writable
     if (file_check_directory($directory, FILE_CREATE_DIRECTORY)) {
+      cache_clear_all();
       return file_save_data($file_contents, $directory .'/google_fonts.css', FILE_EXISTS_REPLACE);
     }
   }
