@@ -34,7 +34,9 @@ function google_fonts_ui_menu() {
  * Implementation of hook_init().
  */
 function google_fonts_ui_init() {
-  drupal_add_css(_google_fonts_cache(variable_get("google_fonts_ui_css_contents", NULL)), 'theme');
+  if (variable_get("google_fonts_ui_css_contents", NULL)) {
+    drupal_add_css(_google_fonts_cache(variable_get("google_fonts_ui_css_contents", NULL)), 'theme');
+  }
 }
 
 /**
@@ -49,10 +51,21 @@ function _google_fonts_cache($file_contents, $reset = FALSE) {
     // Check that the files directory is writable
     if (file_check_directory($directory, FILE_CREATE_DIRECTORY)) {
       cache_clear_all();
-      return file_save_data($file_contents, $directory .'/google_fonts.css', FILE_EXISTS_REPLACE);
+      return file_save_data($file_contents, $file_destination, FILE_EXISTS_REPLACE);
     }
   }
   else {
     return $file_destination;
   }
+}
+
+/**
+ * Create the CSS file and store it locally.
+ * @param $file_contents
+ *   The contents of the CSS file
+ */
+function _google_fonts_cache_delete() {
+  $directory = file_directory_path() .'/google_fonts';
+  $file_destination = $directory .'/google_fonts.css';
+  file_delete($file_destination);
 }
