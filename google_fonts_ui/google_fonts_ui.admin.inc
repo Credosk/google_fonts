@@ -11,6 +11,14 @@
  */
 function google_fonts_ui_admin_settings_form(&$form_state) {
   $form = array();
+  $enabled_fonts = variable_get('google_fonts_enabled_fonts', array());
+  
+  if (empty($enabled_fonts)) {
+    $form['introduction'] = array(
+      '#value' => t('You have not enabled any fonts. Please do this first, before you can apply any CSS rules.'),
+    );
+    return $form;
+  }
   
   $form['introduction'] = array(
     '#value' => t('For each enabled font you can add one or more rules.<br />Examples given: <code>.node H2</code> or <code>#logo-floater h1</code>'),
@@ -18,7 +26,7 @@ function google_fonts_ui_admin_settings_form(&$form_state) {
 
   $fonts_to_load = array();
   $style_to_add = '<style type="text/css">.font_example label{ font-size: 30px; } ';
-  foreach (variable_get('google_fonts_enabled_fonts', array()) as $font) {
+  foreach ($enabled_fonts as $font) {
     if ($font) {
       $font_info = _google_fonts_get_font_info($font);
       $form['google_fonts_ui_' . _google_fonts_system_fontname($font)] = array(
