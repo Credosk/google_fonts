@@ -40,9 +40,9 @@ function google_fonts_menu() {
 
 /**
  * Implementation of hook_init().
+ * Adds the Google Fonts CSS reference to the head of the page so they can be used in themes.
  */
 function google_fonts_init() {
-  
   // We don't need to load the fonts twice as the admin interface
   // loads ALL fonts by default already
   if ($_GET['q'] == 'admin/settings/google_fonts') {
@@ -139,6 +139,18 @@ function _google_fonts_available_fonts() {
         'Crimson Text' => array(
           'family' => 'Crimson Text',
           'path' => 'Crimson+Text',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+      ),
+    ),
+    'Cuprum' => array(
+      'path' => 'Cuprum',
+      'fonts' => array(
+        'Cuprum' => array(
+          'family' => 'Cuprum',
+          'path' => 'Cuprum',
           'style' => 'normal',
           'weight' => 'normal',
           'license' => $sil_license,
@@ -367,6 +379,30 @@ function _google_fonts_available_fonts() {
         ),
       ),
     ),
+    'Neucha' => array(
+      'path' => 'Neucha',
+      'fonts' => array(
+        'Neucha' => array(
+          'family' => 'Neucha',
+          'path' => 'Neucha',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+      ),
+    ),
+    'Neuton' => array(
+      'path' => 'Neuton',
+      'fonts' => array(
+        'Neuton' => array(
+          'family' => 'Neuton',
+          'path' => 'Neuton',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $apache_license,
+        ),
+      ),
+    ),
     'Nobile' => array(
       'path' => 'Nobile',
       'fonts' => array(
@@ -445,6 +481,79 @@ function _google_fonts_available_fonts() {
         ),
       ),
     ),
+    'PT Sans' => array(
+      'path' => 'PT+Sans',
+      'fonts' => array(
+        'PT Sans' => array(
+          'family' => 'PT Sans',
+          'path' => 'PT+Sans',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+        'PT Sans italic' => array(
+          'family' => 'PT Sans',
+          'path' => 'PT+Sans:italic',
+          'style' => 'italic',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+        'PT Sans bold' => array(
+          'family' => 'PT Sans',
+          'path' => 'PT+Sans:bold',
+          'style' => 'normal',
+          'weight' => 'bold',
+          'license' => $sil_license,
+        ),
+        'PT Sans bold italic' => array(
+          'family' => 'PT Sans',
+          'path' => 'PT+Sans:bolditalic',
+          'style' => 'italic',
+          'weight' => 'bold',
+          'license' => $sil_license,
+        ),
+        'PT Sans Caption' => array(
+          'family' => 'PT Sans Caption',
+          'path' => 'PT+Sans+Caption',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+        'PT Sans Caption bold' => array(
+          'family' => 'PT Sans Caption',
+          'path' => 'PT+Sans+Caption:bold',
+          'style' => 'normal',
+          'weight' => 'bold',
+          'license' => $sil_license,
+        ),
+        'PT Sans Narrow' => array(
+          'family' => 'PT Sans Narrow',
+          'path' => 'PT+Sans+Narrow',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+        'PT Sans Narrow bold' => array(
+          'family' => 'PT Sans Narrow',
+          'path' => 'PT+Sans+Narrow:bold',
+          'style' => 'normal',
+          'weight' => 'bold',
+          'license' => $sil_license,
+        ),
+      ),
+    ),
+    'Philosopher' => array(
+      'path' => 'Philosopher',
+      'fonts' => array(
+        'Philosopher' => array(
+          'family' => 'Philosopher',
+          'path' => 'Philosopher',
+          'style' => 'normal',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
+      ),
+    ),
     'Reenie Beanie' => array(
       'path' => 'Reenie+Beanie',
       'fonts' => array(
@@ -467,6 +576,13 @@ function _google_fonts_available_fonts() {
           'weight' => 'normal',
           'license' => $sil_license,
         ),
+        'Tangerine bold' => array(
+          'family' => 'Tangerine',
+          'path' => 'Tangerine:bold',
+          'style' => 'normal',
+          'weight' => 'bold',
+          'license' => $sil_license,
+        ),
       ),
     ),
     'Vollkorn' => array(
@@ -479,10 +595,24 @@ function _google_fonts_available_fonts() {
           'weight' => 'normal',
           'license' => $sil_license,
         ),
+        'Vollkorn italic' => array(
+          'family' => 'Vollkorn',
+          'path' => 'Vollkorn:italic',
+          'style' => 'italic',
+          'weight' => 'normal',
+          'license' => $sil_license,
+        ),
         'Vollkorn bold' => array(
           'family' => 'Vollkorn',
           'path' => 'Vollkorn:bold',
           'style' => 'normal',
+          'weight' => 'bold',
+          'license' => $sil_license,
+        ),
+        'Vollkorn bold italic' => array(
+          'family' => 'Vollkorn',
+          'path' => 'Vollkorn:bolditalic',
+          'style' => 'italic',
           'weight' => 'bold',
           'license' => $sil_license,
         ),
@@ -522,8 +652,7 @@ function _google_fonts_available_fonts() {
       ),
     ),
   );
-
-} // google_fonts_api_list
+}
 
 /**
  * Format the font name as saved in the database (underscores instead of spaces)
@@ -533,7 +662,7 @@ function _google_fonts_system_fontname($string) {
 }
 
 /**
- * Format the font name as saved in the database (underscores instead of spaces)
+ * Format the font name as class_name (underscores instead of : and +)
  */
 function _google_fonts_path_to_classname($string) {
   return strtolower(str_replace('+', '_', str_replace(':', '_', $string)));

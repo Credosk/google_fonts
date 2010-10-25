@@ -15,7 +15,7 @@ function google_fonts_ui_uninstall() {
       variable_del('google_fonts_ui_' . str_replace(' ', '_', $font));
     }
   }
-  variable_del('google_fonts_enabled_fonts');
+
   variable_del('google_fonts_ui_css_contents');
   _google_fonts_cache_delete();
 }

@@ -34,6 +34,7 @@ function google_fonts_admin_settings_form(&$form_state) {
   $style_to_add .= '</style>';
   _google_fonts_load_css($fonts_to_load);
   drupal_set_html_head($style_to_add);
+  
   $form['google_fonts_enabled_fonts'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Enabled Google Fonts'),
